@@ -1,16 +1,18 @@
 <script>
     import { page } from "@inertiajs/inertia-svelte";
     import { onMount, onDestroy } from "svelte";
+    import "leaflet/dist/leaflet.css";
     import L from "leaflet";
     import "l.movemarker";
+    import policeSiren from "../../../assets/sounds/police_siren.wav";
 
     let mapElement;
     let map;
 
     onMount(async () => {
         // const leaflet = await import("leaflet");
-
         const leaflet = L;
+        leaflet.Icon.Default.imagePath = "";
 
         map = leaflet.map(mapElement).setView([32.481674, -116.939936], 13);
         leaflet
@@ -54,22 +56,33 @@
             [
                 [32.481674, -116.939936],
                 [32.479936, -116.938949],
+                [32.476605, -116.926932],
             ],
             {
                 // duration: 5000, // in milliseconds (optional)
                 speed: 25, // in km/h (optional)
-                rotateAngle: 141, // (required if rotateMarker enable)
+                rotateAngle: 210, // (required if rotateMarker enable)
                 animatePolyline: true, // (required)
-                icon: L.divIcon({
-                    html: "position-relative rotate--marker",
-                    html: '<div><img style="width: 50px;" src="https://www.pngkit.com/png/full/54-544296_red-top-view-clip-art-at-clker-cartoon.png" /></div>',
-                }),
-            }
+            },
+            {}
         ).addTo(map);
 
         instance.hidePolylines(true);
-        instance.getMarker().activeFollowMarker(true);
+        // instance.getMarker().activeFollowMarker(true);
+        instance.getMarker().setIcon(policeCar);
+        playAudio();
     });
+
+    setTimeout(() => {
+        // Set the function to move the icons
+    }, 3000);
+
+    function playAudio() {
+        let audio = new Audio();
+        audio.src = policeSiren;
+        audio.muted = true;
+        audio.play();
+    }
 
     onDestroy(async () => {
         if (map) {
