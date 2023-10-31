@@ -1,6 +1,3 @@
-<img src="https://progressify.dev/img/progressify-logo.png" alt="logo" height="120" align="right" />
-
-
 # Django + Inertia.js + Svelte = ❤️
 
 

@@ -34,7 +34,9 @@ class Base(Configuration):
     ]
     INSTALLED_APPS += [  # project apps
         'sample_app',
-        'another_app'
+        'another_app',
+        'map',
+        'officer',
     ]
 
     MIDDLEWARE = [

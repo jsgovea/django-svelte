@@ -1,10 +1,9 @@
 <script>
     import { page } from "@inertiajs/inertia-svelte";
     import { onMount, onDestroy } from "svelte";
-    import "leaflet/dist/leaflet.css";
     import L from "leaflet";
     import "l.movemarker";
-    import policeSiren from "../../../assets/sounds/police_siren.wav";
+    import { startDuty } from "../../js/gameEvents";
 
     let mapElement;
     let map;
@@ -70,7 +69,10 @@
         instance.hidePolylines(true);
         // instance.getMarker().activeFollowMarker(true);
         instance.getMarker().setIcon(policeCar);
-        playAudio();
+        // Make this function work when the user star the "on duty"
+        // playAudio();
+
+        startDuty();
     });
 
     setTimeout(() => {
@@ -78,9 +80,9 @@
     }, 3000);
 
     function playAudio() {
+        console.log("Playing audio.");
         let audio = new Audio();
-        audio.src = policeSiren;
-        audio.muted = true;
+        audio.src = "/static/sounds/police_siren.wav";
         audio.play();
     }
 
@@ -95,10 +97,11 @@
 {$page.props.page_name}
 
 <h1>Map page</h1>
+<button on:click={playAudio}>Play Audio</button>
+
 <main>
     <div bind:this={mapElement} />
 </main>
-*
 
 <style>
     @import "leaflet/dist/leaflet.css";
