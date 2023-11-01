@@ -1,15 +1,15 @@
 <script>
     import { page } from "@inertiajs/inertia-svelte";
     import { onMount, onDestroy } from "svelte";
-    import L from "leaflet";
+    import L, { latLng } from "leaflet";
     import "l.movemarker";
     import { startDuty } from "../../js/gameEvents";
+    import { utilsModuleExports } from "../../js/utils";
 
     let mapElement;
     let map;
 
     onMount(async () => {
-        // const leaflet = await import("leaflet");
         const leaflet = L;
         leaflet.Icon.Default.imagePath = "";
 
@@ -23,11 +23,6 @@
                 }
             )
             .addTo(map);
-        // leaflet
-        //     .marker([51.5, -0.09])
-        //     .addTo(map)
-        //     .bindPopup("A pretty CSS3 popup.<br> Easily customizable.")
-        //     .openPopup();
 
         const policeStationIcon = leaflet.icon({
             iconUrl: "/static/img/policestation.png",
@@ -77,6 +72,8 @@
 
     setTimeout(() => {
         // Set the function to move the icons
+        let newEvent = utilsModuleExports.getLocation();
+        utilsModuleExports.getRandomEvent()
     }, 3000);
 
     function playAudio() {
