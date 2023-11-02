@@ -20,10 +20,28 @@ function randomNumber(n) {
 function getRandomEvent() {
     let randomIndex = randomNumber(moduleExports.allEvents.length)
     let randomEventFunction = moduleExports.allEvents[randomIndex]
-    console.log(randomEventFunction());
+    return randomEventFunction
+    // console.log(randomEventFunction());
+}
+
+function setElementsInMap(leaflet, map, location, event) {
+    // console.log(leaflet, map, location, event);
+
+    const newIcon = leaflet.icon({
+        iconUrl: `/static/img/${event[0]}`,
+        iconSize: [38, 38],
+        iconAnchor: [19, 38]
+    })
+
+    let audio = new Audio();
+    audio.src = `/static/sounds/${event[1]}`
+    audio.volume = 0.2
+    // audio.play()
+    leaflet.marker(location, { icon: newIcon }).addTo(map).bindPopup(event[2])
 }
 
 export const utilsModuleExports = {
     getLocation,
-    getRandomEvent
+    getRandomEvent,
+    setElementsInMap
 }

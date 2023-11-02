@@ -68,16 +68,21 @@
         // playAudio();
 
         startDuty();
+
+        setTimeout(() => {
+            // Set the function to move the icons
+            let newEvent = utilsModuleExports.getLocation();
+            let randomEvent = utilsModuleExports.getRandomEvent();
+            utilsModuleExports.setElementsInMap(
+                leaflet,
+                map,
+                newEvent,
+                randomEvent()
+            );
+        }, 3000);
     });
 
-    setTimeout(() => {
-        // Set the function to move the icons
-        let newEvent = utilsModuleExports.getLocation();
-        utilsModuleExports.getRandomEvent()
-    }, 3000);
-
     function playAudio() {
-        console.log("Playing audio.");
         let audio = new Audio();
         audio.src = "/static/sounds/police_siren.wav";
         audio.play();

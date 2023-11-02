@@ -37,6 +37,7 @@ class Base(Configuration):
         'another_app',
         'map',
         'officer',
+        'event',
     ]
 
     MIDDLEWARE = [
